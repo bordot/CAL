@@ -5680,6 +5680,7 @@ function wp_generate_uuid4() {
 	);
 }
 
+
 /**
  * Validates that a UUID is valid.
  *
@@ -5815,4 +5816,13 @@ All at ###SITENAME###
 		$email_change_email['subject'],
 		$site_name
 	), $email_change_email['message'], $email_change_email['headers'] );
+}// Register Custom Post Type
+
+
+function custom_posts_per_page( $query ) {
+
+    if ( $query->is_archive('project') ) {
+        set_query_var('posts_per_page', 1);
+    }
 }
+add_action( 'pre_get_posts', 'custom_posts_per_page' );
